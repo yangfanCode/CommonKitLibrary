@@ -9,6 +9,7 @@ import android.text.InputFilter.LengthFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -121,8 +122,8 @@ public class FormNormal extends LinearLayout {
     }
 
     public void setGravity(boolean isLeft) {
-        this.etValue.setGravity(isLeft?3:5);
-        this.tvValue.setGravity(isLeft?3:5);
+        this.etValue.setGravity(isLeft? Gravity.LEFT:Gravity.RIGHT);
+        this.tvValue.setGravity(isLeft?Gravity.LEFT:Gravity.RIGHT);
     }
 
     public void setText(String text) {
