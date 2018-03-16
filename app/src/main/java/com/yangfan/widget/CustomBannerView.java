@@ -368,28 +368,28 @@ public class CustomBannerView extends RelativeLayout {
         LayoutParams params = new LayoutParams(-2, -2);
         switch(indicatorPosition.ordinal()) {
             case 1:
-                params.addRule(14);
-                params.addRule(12);
+                params.addRule(CENTER_HORIZONTAL);
+                params.addRule(ALIGN_PARENT_BOTTOM);
                 break;
             case 2:
-                params.addRule(14);
-                params.addRule(10);
+                params.addRule(CENTER_HORIZONTAL);
+                params.addRule(ALIGN_PARENT_TOP);
                 break;
             case 3:
-                params.addRule(9);
-                params.addRule(12);
+                params.addRule(ALIGN_PARENT_LEFT);
+                params.addRule(ALIGN_PARENT_BOTTOM);
                 break;
             case 4:
-                params.addRule(9);
-                params.addRule(10);
+                params.addRule(ALIGN_PARENT_LEFT);
+                params.addRule(ALIGN_PARENT_TOP);
                 break;
             case 5:
-                params.addRule(11);
-                params.addRule(12);
+                params.addRule(ALIGN_PARENT_RIGHT);
+                params.addRule(ALIGN_PARENT_BOTTOM);
                 break;
             case 6:
-                params.addRule(11);
-                params.addRule(10);
+                params.addRule(ALIGN_PARENT_RIGHT);
+                params.addRule(ALIGN_PARENT_TOP);
         }
 
         params.setMargins(this.indicatorMargin, this.indicatorMargin, this.indicatorMargin, this.indicatorMargin);
