@@ -546,7 +546,7 @@ public class CustomBannerView extends RelativeLayout {
     public class LoopPagerAdapter extends PagerAdapter {
         private List<View> views;
 
-        public LoopPagerAdapter(List<View> this$0) {
+        public LoopPagerAdapter(List<View> views) {
             this.views = views;
         }
 
