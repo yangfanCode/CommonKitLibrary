@@ -193,6 +193,7 @@ public class CustomTabLayout extends HorizontalScrollView {
             selectedTabPosition =0 ;
         }
         initView();
+        clickTabWithItem(selectedTabPosition);
     }
 
     private void initView() {
@@ -249,7 +250,7 @@ public class CustomTabLayout extends HorizontalScrollView {
             mViewsList.add(textView);
         }
         initBottomLine();
-        mHandler.sendEmptyMessageDelayed(0, 50);
+        mHandler.sendEmptyMessageDelayed(0, 200);
     }
 
     private void initBottomLine() {
@@ -324,7 +325,14 @@ public class CustomTabLayout extends HorizontalScrollView {
             if (needEqual) {
                 int[] position = new int[2];
                 textView.getLocationOnScreen(position);
-                x = position[0] + (textView.getRight() - textView.getLeft() - bottomLineWidth) / 2;
+                int l1 = position[0];
+                if (l1 == 0 ) {
+                    int sWidth=mWidth/mViewsList.size();//tab宽度
+                    int bWidth=sWidth/2;//半个tab宽度
+                    textView.measure(0,0);
+                    l1=sWidth*selectedTabPosition+bWidth-textView.getMeasuredWidth()/2;
+                }
+                x = l1 + (textView.getRight() - textView.getLeft() - bottomLineWidth) / 2;
             } else
                 x = textView.getLeft() + (textView.getRight() - textView.getLeft() - bottomLineWidth) / 2;
             LayoutParams fl = (LayoutParams) bottomLine.getLayoutParams();
