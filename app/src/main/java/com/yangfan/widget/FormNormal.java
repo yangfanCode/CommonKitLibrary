@@ -5,7 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.InputFilter;
-import android.text.InputFilter.LengthFilter;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -18,12 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.yangfan.commonkitlibrary.R.color;
-import com.yangfan.commonkitlibrary.R.dimen;
-import com.yangfan.commonkitlibrary.R.drawable;
-import com.yangfan.commonkitlibrary.R.id;
-import com.yangfan.commonkitlibrary.R.layout;
-import com.yangfan.commonkitlibrary.R.styleable;
+import com.yangfan.commonkitlibrary.R;
 
 /**
  * Created by yangfan
@@ -38,200 +33,211 @@ public class FormNormal extends LinearLayout {
     private ImageView imvLabel;
     private FrameLayout layContent;
     private boolean editable;
-    private FormNormal.FormNormalTypeEnum mTypeEnum;
+    //    0 任意字符串(默认) 、1 手机号 、2 密码
+    private FormNormalTypeEnum mTypeEnum = FormNormalTypeEnum.TYPE_NORMAL;
 
     public FormNormal(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.mTypeEnum = FormNormal.FormNormalTypeEnum.TYPE_NORMAL;
-        this.initUI(context, attrs);
+        initUI(context, attrs);
     }
 
     private void initUI(Context context, AttributeSet attrs) {
-        LayoutInflater.from(context).inflate(layout.view_form_normal, this, true);
-        int left = this.getResources().getDimensionPixelSize(dimen.row_inner_left_padding);
-        int top = this.getResources().getDimensionPixelSize(dimen.row_inner_vertical_padding);
-        int right = this.getResources().getDimensionPixelSize(dimen.row_inner_right_padding);
-        int bottom = this.getResources().getDimensionPixelSize(dimen.row_inner_vertical_padding);
-        this.tvTitle = (TextView)this.findViewById(id.tv_title);
-        this.etValue = (EditText)this.findViewById(id.et_value);
-        this.imvIndicator = (ImageView)this.findViewById(id.imv_indicator);
-        this.tvValue = (TextView)this.findViewById(id.tv_value);
-        this.imvLabel = (ImageView)this.findViewById(id.imv_label);
-        this.layContent = (FrameLayout)this.findViewById(id.lay_content);
-        TypedArray a = context.obtainStyledAttributes(attrs, styleable.FormNormal);
-        if(a != null) {
-            CharSequence hint = a.getText(styleable.FormNormal_fnHint);
-            CharSequence title = a.getText(styleable.FormNormal_fnTitle);
-            CharSequence text = a.getText(styleable.FormNormal_fnText);
-            boolean indicatorVisible = a.getBoolean(styleable.FormNormal_fnIndicatorVisible, true);
-            int indicatorResid = a.getResourceId(styleable.FormNormal_fnIndicatorResId, -1);
-            this.editable = a.getBoolean(styleable.FormNormal_fnEditable, false);
-            boolean fnGravityLeft = a.getBoolean(styleable.FormNormal_fnGravityLeft, false);
-            int resid = a.getResourceId(styleable.FormNormal_fnResId, -1);
-            boolean fnSetClearable = a.getBoolean(styleable.FormNormal_fnSetClearable, false);
-            int titleTextSize = a.getInteger(styleable.FormNormal_fnTitleTextSize, 17);
-            int textSize = a.getInteger(styleable.FormNormal_fnTextSize, -1);
-            int titleTextColor = a.getResourceId(styleable.FormNormal_fnTitleTextColor, color.color_333333);
-            int textColor = a.getResourceId(styleable.FormNormal_fnTextColor, -1);
-            left = a.getDimensionPixelSize(styleable.FormNormal_fnLeftPadding, left);
-            top = a.getDimensionPixelSize(styleable.FormNormal_fnTopPadding, top);
-            right = a.getDimensionPixelSize(styleable.FormNormal_fnRightPadding, right);
-            bottom = a.getDimensionPixelSize(styleable.FormNormal_fnBottomPadding, bottom);
+        LayoutInflater.from(context).inflate(R.layout.view_form_normal, this, true);
+        int left = getResources().getDimensionPixelSize(R.dimen.row_inner_left_padding);
+        int top = getResources().getDimensionPixelSize(R.dimen.row_inner_vertical_padding);
+        int right = getResources().getDimensionPixelSize(R.dimen.row_inner_right_padding);
+        int bottom = getResources().getDimensionPixelSize(R.dimen.row_inner_vertical_padding);
+        tvTitle = (TextView) findViewById(R.id.tv_title);
+        etValue = (EditText) findViewById(R.id.et_value);
+        imvIndicator = (ImageView) findViewById(R.id.imv_indicator);
+        tvValue = (TextView) findViewById(R.id.tv_value);
+        imvLabel = (ImageView) findViewById(R.id.imv_label);
+        layContent = (FrameLayout) findViewById(R.id.lay_content);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.FormNormal);
+
+        if (a != null) {
+            CharSequence hint = a.getText(R.styleable.FormNormal_fnHint);
+            CharSequence title = a.getText(R.styleable.FormNormal_fnTitle);
+            CharSequence text = a.getText(R.styleable.FormNormal_fnText);
+            boolean indicatorVisible = a.getBoolean(R.styleable.FormNormal_fnIndicatorVisible, true);
+            int indicatorResid = a.getResourceId(R.styleable.FormNormal_fnIndicatorResId, -1);
+            editable = a.getBoolean(R.styleable.FormNormal_fnEditable, false);
+            boolean fnGravityLeft = a.getBoolean(R.styleable.FormNormal_fnGravityLeft, false);// 内容靠左对其
+            int resid = a.getResourceId(R.styleable.FormNormal_fnResId, -1);
+
+            boolean fnSetClearable = a.getBoolean(R.styleable.FormNormal_fnSetClearable, false);//
+
+            int titleTextSize = a.getInteger(R.styleable.FormNormal_fnTitleTextSize, 17);
+            int textSize = a.getInteger(R.styleable.FormNormal_fnTextSize, -1);
+
+            int titleTextColor = a.getResourceId(R.styleable.FormNormal_fnTitleTextColor, R.color.color_333333);
+            int textColor = a.getResourceId(R.styleable.FormNormal_fnTextColor, -1);
+
+            left = a.getDimensionPixelSize(R.styleable.FormNormal_fnLeftPadding, left);
+            top = a.getDimensionPixelSize(R.styleable.FormNormal_fnTopPadding, top);
+            right = a.getDimensionPixelSize(R.styleable.FormNormal_fnRightPadding, right);
+            bottom = a.getDimensionPixelSize(R.styleable.FormNormal_fnBottomPadding, bottom);
+
             a.recycle();
-            this.setTitleTextSize((float)titleTextSize);
-            this.setTitleTextColor(titleTextColor);
-            this.setTextSize((float)textSize);
-            this.setTextColor(textColor);
-            if(!TextUtils.isEmpty(hint)) {
-                this.setHint(hint.toString());
+
+            setTitleTextSize(titleTextSize);
+            setTitleTextColor(titleTextColor);
+
+            setTextSize(textSize);
+            setTextColor(textColor);
+
+            if (!TextUtils.isEmpty(hint)) {
+                setHint(hint.toString());
             }
 
-            if(!TextUtils.isEmpty(title)) {
-                this.setTitle(title.toString());
+            if (!TextUtils.isEmpty(title)) {
+                setTitle(title.toString());
             }
 
-            if(!TextUtils.isEmpty(text)) {
-                this.setText(text.toString());
+            if (!TextUtils.isEmpty(text)) {
+                setText(text.toString());
             }
 
-            this.setImvIndicatorVisible(indicatorVisible);
-            this.setEtValueEditable(this.editable);
-            this.setGravity(fnGravityLeft);
-            this.setImvLabelImageResource(resid);
-            this.setImvIndicatorImageResource(indicatorResid);
-            if(fnSetClearable) {
-                this.setClearable();
+            setImvIndicatorVisible(indicatorVisible);
+            setEtValueEditable(editable);
+            setGravity(fnGravityLeft);
+
+            setImvLabelImageResource(resid);
+            setImvIndicatorImageResource(indicatorResid);
+
+            if (fnSetClearable) {
+                setClearable();
             }
         }
+        setPadding2(left, top, right, bottom);
 
-        this.setPadding2(left, top, right, bottom);
     }
 
     public void init(String title, String text) {
-        this.setTitle(title);
-        this.setHint(text);
+        setTitle(title);
+        setHint(text);
     }
 
     public void setTitle(String title) {
-        this.tvTitle.setText(title);
+        tvTitle.setText(title);
     }
 
+    // 设置 title minwidth
     public void setTitleMinWidth(int minWidth) {
-        this.tvTitle.setMinWidth(minWidth);
-        this.tvTitle.setMinimumWidth(minWidth);
+        tvTitle.setMinWidth(minWidth);
+        tvTitle.setMinimumWidth(minWidth);//必须同时设置这个
     }
 
+    // 内容是否左对齐，   false 右对齐
     public void setGravity(boolean isLeft) {
-        this.etValue.setGravity(isLeft? Gravity.LEFT:Gravity.RIGHT);
-        this.tvValue.setGravity(isLeft?Gravity.LEFT:Gravity.RIGHT);
+        etValue.setGravity(isLeft ? Gravity.LEFT : Gravity.RIGHT);
+        tvValue.setGravity(isLeft ? Gravity.LEFT : Gravity.RIGHT);
     }
 
     public void setText(String text) {
-        this.etValue.setText(text);
-        this.tvValue.setText(text);
+        etValue.setText(text);
+        tvValue.setText(text);
     }
 
     public void setText(String text, int clrResId) {
-        this.setText(text);
-        this.etValue.setTextColor(this.getResources().getColor(clrResId));
-        this.tvValue.setTextColor(this.getResources().getColor(clrResId));
+        setText(text);
+        etValue.setTextColor(getResources().getColor(clrResId));
+        tvValue.setTextColor(getResources().getColor(clrResId));
     }
 
     public void setText(String title, String text, int clrResId) {
-        this.tvTitle.setText(title);
-        this.setText(text);
-        this.etValue.setTextColor(this.getResources().getColor(clrResId));
-        this.tvValue.setTextColor(this.getResources().getColor(clrResId));
+        tvTitle.setText(title);
+        setText(text);
+        etValue.setTextColor(getResources().getColor(clrResId));
+        tvValue.setTextColor(getResources().getColor(clrResId));
     }
 
     public void setTextDrawableRight(int drawableRightResId) {
-        this.setHint("");
-        Drawable drawable = this.getContext().getResources().getDrawable(drawableRightResId);
-        this.tvValue.setCompoundDrawablesWithIntrinsicBounds((Drawable)null, (Drawable)null, drawable, (Drawable)null);
+        setHint("");
+        Drawable drawable = getContext().getResources().getDrawable(drawableRightResId);
+        tvValue.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
     }
 
     public void setTitleTextColor(int clrResId) {
-        this.tvTitle.setTextColor(this.getResources().getColor(clrResId));
+        tvTitle.setTextColor(getResources().getColor(clrResId));
     }
 
     public void setTitleTextSize(float size) {
-        this.tvTitle.setTextSize(size);
+        tvTitle.setTextSize(size);
     }
 
     public void setTextColor(int clrResId) {
-        if(clrResId != -1) {
-            this.etValue.setTextColor(this.getResources().getColor(clrResId));
-            this.tvValue.setTextColor(this.getResources().getColor(clrResId));
+        if (clrResId != -1) {
+            etValue.setTextColor(getResources().getColor(clrResId));
+            tvValue.setTextColor(getResources().getColor(clrResId));
         }
-
     }
 
     public void setTextSize(float size) {
-        if(size != -1.0F) {
-            this.tvValue.setTextSize(size);
-            this.etValue.setTextSize(size);
+        if (size != -1) {
+            tvValue.setTextSize(size);
+            etValue.setTextSize(size);
         }
 
     }
 
+    // boolean isVisible  true 显示  false 隐藏
     public void setImvIndicatorVisible(boolean isVisible) {
-        this.imvIndicator.setVisibility(isVisible?VISIBLE:GONE);
+        imvIndicator.setVisibility(isVisible ? VISIBLE : GONE);
     }
 
     public void setEtValueEditable(boolean editable) {
-        this.etValue.setEnabled(editable);
-        this.etValue.setVisibility(editable?VISIBLE:GONE);
-        this.tvValue.setVisibility(editable?GONE:VISIBLE);
+        etValue.setEnabled(editable);
+        etValue.setVisibility(editable ? VISIBLE : GONE);
+        tvValue.setVisibility(editable ? GONE : VISIBLE);
     }
 
     public void setImvLabelImageResource(int resId) {
-        if(resId != -1) {
-            this.imvLabel.setImageResource(resId);
-            this.imvLabel.setVisibility(VISIBLE);
+        if (resId != -1) {
+            imvLabel.setImageResource(resId);
+            imvLabel.setVisibility(VISIBLE);
         } else {
-            this.imvLabel.setVisibility(GONE);
+            imvLabel.setVisibility(GONE);
         }
-
     }
 
     public void setImvIndicatorImageResource(int resId) {
-        if(resId != -1) {
+        if (resId != -1) {
             this.imvIndicator.setImageResource(resId);
         }
-
     }
 
     public String getText() {
-        return this.getTextView().getText().toString();
+        return getTextView().getText().toString();
     }
 
     public TextView getTextView() {
-        return (TextView)(this.editable?this.etValue:this.tvValue);
+        return editable ? etValue : tvValue;
     }
 
     public EditText getEtValue() {
-        return this.etValue;
+        return etValue;
     }
 
     public TextView getTvTitle() {
-        return this.tvTitle;
+        return tvTitle;
     }
 
     public ImageView getImvIndicator() {
-        return this.imvIndicator;
+        return imvIndicator;
     }
 
     public FrameLayout getLayContent() {
-        return this.layContent;
+        return layContent;
     }
 
     public ImageView getImvLabel() {
-        return this.imvLabel;
+        return imvLabel;
     }
 
     public void setHint(String text) {
-        this.etValue.setHint(text);
-        this.tvValue.setHint(text);
+        etValue.setHint(text);
+        tvValue.setHint(text);
     }
 
     public void setPadding2(int left, int top, int right, int bottom) {
@@ -239,62 +245,80 @@ public class FormNormal extends LinearLayout {
     }
 
     public void setClearable() {
-        this.imvIndicator.setVisibility(INVISIBLE);
-        this.setImvIndicatorImageResource(drawable.icon_clear);
-        this.getTextView().addTextChangedListener(new TextWatcher() {
+        imvIndicator.setVisibility(INVISIBLE);
+        setImvIndicatorImageResource(R.drawable.icon_clear);
+        getTextView().addTextChangedListener(new TextWatcher() {
+            @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
 
+            @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
             }
 
+            @Override
             public void afterTextChanged(Editable s) {
-                FormNormal.this.imvIndicator.setVisibility(s.length() > 0?VISIBLE:INVISIBLE);
+                imvIndicator.setVisibility(s.length() > 0 ? VISIBLE : INVISIBLE);
             }
         });
-        this.imvIndicator.setOnClickListener(new OnClickListener() {
+        imvIndicator.setOnClickListener(new OnClickListener() {
+            @Override
             public void onClick(View v) {
-                FormNormal.this.getTextView().setText("");
+                getTextView().setText("");
             }
         });
     }
 
     public void setMaxLength(int maxLength) {
-        this.etValue.setFilters(new InputFilter[]{new LengthFilter(maxLength)});
+        etValue.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxLength)});
     }
 
     public void addTextChangedListener(TextWatcher watcher) {
-        this.etValue.addTextChangedListener(watcher);
+        etValue.addTextChangedListener(watcher);
     }
 
-    public void chooseInputType(FormNormal.FormNormalTypeEnum typeEnum) {
+    /**
+     * 该方法在组件可输入的情况下才会用到！
+     * 选择输入框输入类型
+     */
+    public void chooseInputType(FormNormalTypeEnum typeEnum) {
         this.mTypeEnum = typeEnum;
-        switch(mTypeEnum.ordinal()) {
-            case 1:
-                this.etValue.setInputType(1);
+        switch (mTypeEnum) {
+            case TYPE_NORMAL: //
+                etValue.setInputType(InputType.TYPE_CLASS_TEXT);
+
                 break;
-            case 2:
-                this.etValue.setInputType(2);
+            case TYPE_CLASS_NUMBER: //
+                etValue.setInputType(InputType.TYPE_CLASS_NUMBER);
                 break;
-            case 3:
-                this.etValue.setInputType(3);
+            case TYPE_CLASS_PHONE: //
+                etValue.setInputType(InputType.TYPE_CLASS_PHONE);
                 break;
-            case 4:
-                this.etValue.setInputType(129);
+            case TYPE_PASSWORD: //
+                etValue.setInputType(InputType.TYPE_CLASS_TEXT | InputType
+                        .TYPE_TEXT_VARIATION_PASSWORD);
                 break;
-            case 5:
-                this.etValue.setInputType(145);
+            case TYPE_VISIBLE_PASSWORD: //
+                etValue.setInputType(InputType.TYPE_CLASS_TEXT | InputType
+                        .TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                 break;
-            case 6:
-                this.etValue.setInputType(8194);
+
+            case TYPE_NUMBER_OR_DECIMAL: //
+                etValue.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                 break;
-            case 7:
-                this.etValue.setInputType(32);
+            case TYPE_TEXT_VARIATION_EMAIL_ADDRESS: //
+                etValue.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                break;
+            default:
+                break;
         }
 
     }
 
-    public static enum FormNormalTypeEnum {
+    public enum FormNormalTypeEnum {
+        //        0 任意字符串(默认) 、1 手机号 、2 密码   4 只能输入数字和小数点 5 可见密码 6 数字
         TYPE_NORMAL(0),
         TYPE_CLASS_PHONE(1),
         TYPE_PASSWORD(2),
@@ -306,11 +330,13 @@ public class FormNormal extends LinearLayout {
         private int mCode;
 
         public int getCode() {
-            return this.mCode;
+            return mCode;
         }
 
-        private FormNormalTypeEnum(int code) {
+        FormNormalTypeEnum(int code) {
             this.mCode = code;
         }
+
+
     }
 }

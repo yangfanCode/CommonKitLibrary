@@ -4,15 +4,13 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.widget.RatingBar;
 
-import com.yangfan.commonkitlibrary.R.drawable;
-import com.yangfan.commonkitlibrary.R.styleable;
+import com.yangfan.commonkitlibrary.R;
 
 /**
  * Created by yangfan
@@ -20,133 +18,188 @@ import com.yangfan.commonkitlibrary.R.styleable;
  */
 
 public class CustomRatingBar extends RatingBar {
-    private final float mDp;
+    private final float mDp = getResources().getDisplayMetrics().density;
     private float mStarSize;
-    private Bitmap mNormalBmp;
-    private Bitmap mSelectBmp;
-    private int margin;
-    private int mDrawableNormal;
-    private int mDrawableSelect;
-    private Rect srcRect;
-    private Rect dstRect;
+    private Bitmap mNormalBmp = null;
+    private Bitmap mSelectBmp = null;
+    private int margin = 0;
+    private int mDrawableNormal = R.drawable.greystar;
+    private int mDrawableSelect = R.drawable.yellowstar;
+    private Rect srcRect = new Rect();
+    private Rect dstRect = new Rect();
+
 
     public CustomRatingBar(Context context) {
-        this(context, (AttributeSet)null);
+        this(context, null);
     }
 
     public CustomRatingBar(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.mDp = this.getResources().getDisplayMetrics().density;
-        this.mNormalBmp = null;
-        this.mSelectBmp = null;
-        this.margin = 0;
-        this.mDrawableNormal = drawable.greystar;
-        this.mDrawableSelect = drawable.yellowstar;
-        this.srcRect = new Rect();
-        this.dstRect = new Rect();
-        this.getXmlAttrs(context, attrs);
-        this.init();
+        getXmlAttrs(context, attrs);
+        init();
     }
 
     public CustomRatingBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.mDp = this.getResources().getDisplayMetrics().density;
-        this.mNormalBmp = null;
-        this.mSelectBmp = null;
-        this.margin = 0;
-        this.mDrawableNormal = drawable.greystar;
-        this.mDrawableSelect = drawable.yellowstar;
-        this.srcRect = new Rect();
-        this.dstRect = new Rect();
-        this.getXmlAttrs(context, attrs);
-        this.init();
+        getXmlAttrs(context, attrs);
+        init();
     }
 
     private void init() {
-        this.mNormalBmp = ((BitmapDrawable)this.getResources().getDrawable(this.mDrawableNormal)).getBitmap();
-        this.mSelectBmp = ((BitmapDrawable)this.getResources().getDrawable(this.mDrawableSelect)).getBitmap();
+
+        mNormalBmp = ((BitmapDrawable) getResources().getDrawable(mDrawableNormal)).getBitmap();
+        mSelectBmp = ((BitmapDrawable) getResources().getDrawable(mDrawableSelect)).getBitmap();
+
     }
 
+    @Override
     protected synchronized void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int desiredWidth = (int)(50.0F * this.mDp * (float)this.getNumStars());
+        int desiredWidth = (int) (50 * mDp * getNumStars());
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         int heightSize = MeasureSpec.getSize(heightMeasureSpec);
-        int numStars = this.getNumStars();
+
         int width;
-        if(widthMode == 1073741824) {
+        int height;
+        int numStars = getNumStars();
+
+        //Measure Width
+        if (widthMode == MeasureSpec.EXACTLY) {
+            //Must be this size
             width = widthSize;
-        } else if(widthMode == -2147483648) {
+        } else if (widthMode == MeasureSpec.AT_MOST) {
+            //Can't be bigger than...
             width = Math.min(desiredWidth, widthSize);
         } else {
+            //Be whatever you want
             width = desiredWidth;
         }
 
-        int height;
-        if(heightMode == 1073741824) {
+        //Measure Height
+        if (heightMode == MeasureSpec.EXACTLY) {
+            //Must be this size
             height = heightSize;
-        } else if(heightMode == -2147483648) {
+        } else if (heightMode == MeasureSpec.AT_MOST) {
+            //Can't be bigger than...
             height = Math.min(heightSize, width / numStars);
         } else {
+            //Be whatever you want
             height = width / numStars;
         }
 
-        this.mStarSize = (float)Math.min(height, width / numStars);
-        this.margin = (width - (int)(this.mStarSize * (float)numStars)) / (numStars - 1);
-        this.setMeasuredDimension(width, height);
+        //If starSize matches getHeight, the tips of the star can get cut off due to strokeWidth
+        // being added to the polygon size.
+        //Make it a bit smaller to avoid this. Also decrease star size and spread them out rather
+        // than cutting them off if the
+        //height is insufficient for the width.
+        mStarSize = Math.min(height, width / numStars);
+        margin = (width - (int) (mStarSize * numStars)) / (numStars - 1);
+
+        //MUST CALL THIS
+        setMeasuredDimension(width, height);
     }
 
+    @Override
     protected void onDraw(@NonNull Canvas canvas) {
-        int numStars = this.getNumStars();
-        float rating = this.getRating();
-        float floorValue = (float)Math.floor((double)rating);
+
+
+        int numStars = getNumStars();
+        float rating = getRating();
+        float floorValue = (float) Math.floor(rating);
         float mod = rating - floorValue;
 
         int left;
         int right;
-        int i;
-        for(i = 0; (float)i < floorValue; ++i) {
-            left = i * ((int)this.mStarSize + this.margin);
-            right = left + (int)this.mStarSize;
-            this.srcRect.set(0, 0, this.mSelectBmp.getWidth(), this.mSelectBmp.getHeight());
-            this.dstRect.set(left, 0, right, (int)this.mStarSize);
-            canvas.drawBitmap(this.mSelectBmp, this.srcRect, this.dstRect, (Paint)null);
+
+//        // 方法一：绘制两层
+//
+//        for (int i = 0; i < getNumStars(); ++i) {
+//            left = i * ((int) mStarSize + margin);
+//            right = left + (int) mStarSize;
+//            dstRect.set(left, 0, right, (int) mStarSize);
+//            canvas.drawBitmap(mNormalBmp, null, dstRect, null);
+//        }
+//
+//        for (int i = 0; i < floorValue; ++i) {
+//            left = i * ((int) mStarSize + margin);
+//            right = left + (int) mStarSize;
+//            dstRect.set(left, 0, right, (int) mStarSize);
+//            canvas.drawBitmap(mSelectBmp, null, dstRect, null);
+//        }
+//
+//        if (mod > 0) {
+//            int modWidth = (int) (mod * mStarSize);
+//            left = (int) (floorValue * ((int) mStarSize + margin));
+//            right = left + modWidth;
+//            srcRect.set(0, 0, (int) (mod * mSelectBmp.getWidth()), mSelectBmp.getHeight());
+//            dstRect.set(left, 0, right, (int) mStarSize);
+//            canvas.drawBitmap(mSelectBmp, srcRect, dstRect, null);
+//
+//        }
+
+
+        // 方法一：绘制一层
+
+        // 绘制完整 选中星星
+
+        for (int i = 0; i < floorValue; ++i) {
+            left = i * ((int) mStarSize + margin);
+            right = left + (int) mStarSize;
+            srcRect.set(0, 0, mSelectBmp.getWidth(), mSelectBmp.getHeight());
+            dstRect.set(left, 0, right, (int) mStarSize);
+            canvas.drawBitmap(mSelectBmp, srcRect, dstRect, null);
+        }
+        // 绘制不完整
+        if (mod > 0) {
+
+            // 绘制未选中的 完整 星星
+            left = (int) (floorValue * ((int) mStarSize + margin));
+            right = left + (int) mStarSize;
+            dstRect.set(left, 0, right, (int) mStarSize);
+            canvas.drawBitmap(mNormalBmp, null, dstRect, null);
+
+
+            // 绘制选中的 不完整 星星
+            int modWidth = (int) (mod * mStarSize);
+            left = (int) (floorValue * (mStarSize + margin));
+            right = left + modWidth;
+            srcRect.set(0, 0, (int) (mod * mSelectBmp.getWidth()), mSelectBmp.getHeight());
+            dstRect.set(left, 0, right, (int) mStarSize);
+            canvas.drawBitmap(mSelectBmp, srcRect, dstRect, null);
+
+//            // 绘制未选中的 不完整 星星
+//            int temp = left;
+//            left = right;
+//            right = temp + (int) mStarSize;
+//            srcRect.set((int) (mod * mNormalBmp.getWidth()), 0, mNormalBmp.getWidth(), mNormalBmp.getHeight());
+//            dstRect.set(left, 0, right, (int) mStarSize);
+//            canvas.drawBitmap(mNormalBmp, srcRect, dstRect, null);
+
         }
 
-        if(mod > 0.0F) {
-            left = (int)(floorValue * (float)((int)this.mStarSize + this.margin));
-            right = left + (int)this.mStarSize;
-            this.dstRect.set(left, 0, right, (int)this.mStarSize);
-            canvas.drawBitmap(this.mNormalBmp, (Rect)null, this.dstRect, (Paint)null);
-            i = (int)(mod * this.mStarSize);
-            left = (int)(floorValue * (this.mStarSize + (float)this.margin));
-            right = left + i;
-            this.srcRect.set(0, 0, (int)(mod * (float)this.mSelectBmp.getWidth()), this.mSelectBmp.getHeight());
-            this.dstRect.set(left, 0, right, (int)this.mStarSize);
-            canvas.drawBitmap(this.mSelectBmp, this.srcRect, this.dstRect, (Paint)null);
-        }
-
-        for(i = (int)Math.ceil((double)rating); i < numStars; ++i) {
-            left = i * ((int)this.mStarSize + this.margin);
-            right = left + (int)this.mStarSize;
-            this.srcRect.set(0, 0, this.mNormalBmp.getWidth(), this.mNormalBmp.getHeight());
-            this.dstRect.set(left, 0, right, (int)this.mStarSize);
-            canvas.drawBitmap(this.mNormalBmp, this.srcRect, this.dstRect, (Paint)null);
+        // 绘制未选中
+        for (int i = (int) Math.ceil(rating); i < numStars; ++i) {
+            left = i * ((int) mStarSize + margin);
+            right = left + (int) mStarSize;
+            srcRect.set(0, 0, mNormalBmp.getWidth(), mNormalBmp.getHeight());
+            dstRect.set(left, 0, right, (int) mStarSize);
+            canvas.drawBitmap(mNormalBmp, srcRect, dstRect, null);
         }
 
     }
 
+    //Set any XML attributes that may have been specified
     private void getXmlAttrs(Context context, AttributeSet attrs) {
-        TypedArray a = context.getTheme().obtainStyledAttributes(attrs, styleable.CustomRatingBar, 0, 0);
-
+        TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable
+                .CustomRatingBar, 0, 0);
         try {
-            this.mDrawableNormal = a.getResourceId(styleable.CustomRatingBar_normalDrawable, drawable.greystar);
-            this.mDrawableSelect = a.getResourceId(styleable.CustomRatingBar_selectDrawable, drawable.yellowstar);
+            mDrawableNormal = a.getResourceId(R.styleable.CustomRatingBar_normalDrawable, R.drawable.greystar);
+            mDrawableSelect = a.getResourceId(R.styleable.CustomRatingBar_selectDrawable, R.drawable.yellowstar);
+
         } finally {
             a.recycle();
         }
-
     }
 
     public void setDrawableNormal(int mDrawableNormal) {

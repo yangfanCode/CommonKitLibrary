@@ -1,0 +1,90 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="padding_2">2dp</dimen>
+    <dimen name="padding_3">3dp</dimen>
+    <dimen name="padding_4">4dp</dimen>
+    <dimen name="padding_5">5dp</dimen>
+    <dimen name="padding_6">6dp</dimen>
+    <dimen name="padding_7">7dp</dimen>
+    <dimen name="padding_8">8dp</dimen>
+    <dimen name="padding_9">9dp</dimen>
+    <dimen name="padding_10">10dp</dimen>
+    <dimen name="padding_11">11dp</dimen>
+    <dimen name="padding_12">12dp</dimen>
+    <dimen name="padding_13">13dp</dimen>
+    <dimen name="padding_14">14dp</dimen>
+    <dimen name="padding_15">15dp</dimen>
+    <dimen name="padding_16">16dp</dimen>
+    <dimen name="padding_17">17dp</dimen>
+    <dimen name="padding_18">18dp</dimen>
+    <dimen name="padding_19">19dp</dimen>
+    <dimen name="padding_20">20dp</dimen>
+    <dimen name="padding_21">21dp</dimen>
+    <dimen name="padding_22">22dp</dimen>
+    <dimen name="padding_23">23dp</dimen>
+    <dimen name="padding_24">24dp</dimen>
+    <dimen name="padding_25">25dp</dimen>
+    <dimen name="padding_26">26dp</dimen>
+    <dimen name="padding_27">27dp</dimen>
+    <dimen name="padding_28">28dp</dimen>
+    <dimen name="padding_29">29dp</dimen>
+    <dimen name="padding_30">30dp</dimen>
+    <dimen name="padding_33">33dp</dimen>
+    <dimen name="padding_36">36dp</dimen>
+    <dimen name="padding_37">37dp</dimen>
+    <dimen name="padding_38">38dp</dimen>
+    <dimen name="padding_40">40dp</dimen>
+    <dimen name="padding_45">45dp</dimen>
+    <dimen name="padding_50">50dp</dimen>
+    <dimen name="padding_55">55dp</dimen>
+    <dimen name="padding_66">66dp</dimen>
+    <dimen name="padding_77">77dp</dimen>
+    <dimen name="padding_78">78dp</dimen>
+    <dimen name="padding_98">98dp</dimen>
+    <dimen name="padding_100">100dp</dimen>
+    <!-- 字体大小 -->
+    <dimen name="text_size_5">5sp</dimen>
+    <dimen name="text_size_8">8sp</dimen>
+    <dimen name="text_size_10">10sp</dimen>
+    <dimen name="text_size_11">11sp</dimen>
+    <dimen name="text_size_12">12sp</dimen>
+    <dimen name="text_size_13">13sp</dimen>
+    <dimen name="text_size_14">14sp</dimen>
+    <dimen name="text_size_15">15sp</dimen>
+    <dimen name="text_size_16">16sp</dimen>
+    <dimen name="text_size_17">17sp</dimen>
+    <dimen name="text_size_18">18sp</dimen>
+    <dimen name="text_size_19">19sp</dimen>
+    <dimen name="text_size_20">20sp</dimen>
+    <dimen name="text_size_21">21sp</dimen>
+    <dimen name="text_size_22">22sp</dimen>
+    <dimen name="text_size_26">26sp</dimen>
+    <dimen name="text_size_30">30sp</dimen>
+    <dimen name="text_size_32">32sp</dimen>
+    <dimen name="text_size_40">40sp</dimen>
+
+    <!--  form  的一些定义 -->
+    <dimen name="form_row_height">59dp</dimen>
+    <dimen name="form_row_title_width_min">92dp</dimen>
+    <dimen name="row_inner_vertical_padding">13dp</dimen>
+    <dimen name="row_inner_left_padding">15dp</dimen>
+    <dimen name="row_inner_right_padding">15dp</dimen>
+    <dimen name="row_inner_right_image_left_margin">11dp</dimen>
+
+    <dimen name="row_inner_vertical_padding2">10dp</dimen>
+    <dimen name="row_inner_vertical_padding3">24dp</dimen>
+    <dimen name="row_inner_vertical_padding4">1dp</dimen>
+    <dimen name="row_inner_vertical_padding5">17dp</dimen>
+
+    <dimen name="row_inner_content_left_padding">-20dp</dimen>
+    <dimen name="padding_5_negative">-5dp</dimen>
+    <dimen name="padding_10_negative">-10dp</dimen>
+
+
+    <!--间隔线 1px 高度-->
+    <dimen name="divider_height_1px">1px</dimen>
+
+</resources>

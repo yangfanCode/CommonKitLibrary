@@ -1,4 +1,4 @@
-package com.yangfan.widget;
+package com.cp2y.cube.widgets;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -183,6 +183,17 @@ public class CustomTabLayout extends HorizontalScrollView {
         this.mTabList = mTabList;
         initView();
     }
+    //不使用viewpager
+    public void setTabData(List<CharSequence> mTabList,int defaultPos){
+        if (mTabList == null || mTabList.size() == 0) return;
+        this.mTabList = mTabList;
+        if(defaultPos >= 0 && defaultPos < mTabList.size()){
+            selectedTabPosition = defaultPos;
+        }else{
+            selectedTabPosition =0 ;
+        }
+        initView();
+    }
 
     private void initView() {
         if (mTabList == null || mTabList.size() == 0) return;
@@ -238,7 +249,7 @@ public class CustomTabLayout extends HorizontalScrollView {
             mViewsList.add(textView);
         }
         initBottomLine();
-        mHandler.sendEmptyMessageDelayed(0, 200);
+        mHandler.sendEmptyMessageDelayed(0, 50);
     }
 
     private void initBottomLine() {

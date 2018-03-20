@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="FormNormal">
+        <attr name="fnHint" format="string" />
+        <attr name="fnText" format="string" />
+        <attr name="fnTitle" format="string" />
+        <attr name="fnIndicatorVisible" format="boolean" />
+        <attr name="fnIndicatorResId" format="reference" />
+        <attr name="fnEditable" format="boolean" />
+        <attr name="fnGravityLeft" format="boolean" />
+        <attr name="fnResId" format="reference" />
+        <attr name="fnSetClearable" format="boolean" />
+
+        <attr name="fnTitleTextSize" format="integer" />
+        <attr name="fnTitleTextColor" format="reference" />
+        <attr name="fnTextSize" format="integer" />
+        <attr name="fnTextColor" format="reference" />
+
+        <attr name="fnLeftPadding" format="dimension" />//
+        <attr name="fnTopPadding" format="dimension" />//
+        <attr name="fnRightPadding" format="dimension" />//
+        <attr name="fnBottomPadding" format="dimension" />//
+
+    </declare-styleable>
+
+
+    <declare-styleable name="FormNormal2">
+        <attr name="fn2Hint" format="string" />
+        <attr name="fn2Text" format="string" />
+        <attr name="fn2Title" format="string" />
+        <attr name="fn2Title2" format="string" />
+        <attr name="fn2IndicatorVisible" format="boolean" />
+        <attr name="fn2ResId" format="reference" />
+
+        <attr name="fn2LeftPadding" format="dimension" />//
+        <attr name="fn2TopPadding" format="dimension" />//
+        <attr name="fn2RightPadding" format="dimension" />//
+        <attr name="fn2BottomPadding" format="dimension" />//
+    </declare-styleable>
+
+    <declare-styleable name="CustomRatingBar">
+        <attr name="normalDrawable" format="reference" />
+        <attr name="selectDrawable" format="reference" />
+    </declare-styleable>
+    <declare-styleable name="BannerLayoutStyle">
+        <attr name="maskStartColor" format="color|reference" />
+        <attr name="maskEndColor" format="color|reference" />
+        <attr name="selectedIndicatorColor" format="color|reference" />
+        <attr name="unSelectedIndicatorColor" format="color|reference" />
+        <attr name="indicatorShape" format="enum">
+            <enum name="rect" value="0" />
+            <enum name="oval" value="1" />
+        </attr>
+        <attr name="selectedIndicatorHeight" format="dimension|reference" />
+        <attr name="selectedIndicatorWidth" format="dimension|reference" />
+        <attr name="unSelectedIndicatorHeight" format="dimension|reference" />
+        <attr name="unSelectedIndicatorWidth" format="dimension|reference" />
+        <attr name="indicatorPosition" format="enum">
+            <enum name="centerBottom" value="0" />
+            <enum name="rightBottom" value="1" />
+            <enum name="leftBottom" value="2" />
+            <enum name="centerTop" value="3" />
+            <enum name="rightTop" value="4" />
+            <enum name="leftTop" value="5" />
+        </attr>
+        <attr name="indicatorSpace" format="dimension|reference" />
+        <attr name="indicatorMargin" format="dimension|reference" />
+        <attr name="autoPlayDuration" format="integer|reference" />
+        <attr name="scrollDuration" format="integer|reference" />
+        <attr name="isAutoPlay" format="boolean" />
+        <attr name="placeholder" format="integer|reference" />
+        <attr name="errorHolder" format="integer|reference" />
+        <attr name="isIndicatorVisible" format="boolean" />
+        <attr name="cornerRadii" format="dimension|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="EaseImageView">
+        <attr name="ease_border_color" format="color" />
+        <attr name="ease_border_width" format="dimension" />
+        <attr name="ease_press_alpha" format="integer" />
+        <attr name="ease_press_color" format="color" />
+        <attr name="ease_radius" format="dimension" />
+        <attr name="ease_shape_type" format="enum">
+            <enum name="none" value="0" />
+            <enum name="round" value="1" />
+            <enum name="rectangle" value="2" />
+        </attr>
+    </declare-styleable>
+
+
+</resources>
