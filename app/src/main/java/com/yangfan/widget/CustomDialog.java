@@ -32,6 +32,7 @@ public class CustomDialog  extends Dialog {
      */
     public static class Builder {
 
+        private TextView tv_ok,tv_cancle;
         private Context context;
         private String title;
         private String message;
@@ -161,6 +162,22 @@ public class CustomDialog  extends Dialog {
         }
 
         /**
+         * get the negative button
+         * @return
+         */
+        public TextView getNegativeButton(){
+            return tv_cancle;
+        }
+
+        /**
+         * get the positive button
+         * @return
+         */
+        public TextView getPositiveButton(){
+            return tv_ok;
+        }
+
+        /**
          * Create the custom dialog
          */
         public CustomDialog create() {
@@ -193,12 +210,12 @@ public class CustomDialog  extends Dialog {
 
             }
 
-
             // set the confirm button
+            tv_ok=((TextView) layout.findViewById(R.id.tv_ok));
             if (positiveButtonText != null) {
-                ((TextView) layout.findViewById(R.id.tv_ok)).setText(positiveButtonText);
+                tv_ok.setText(positiveButtonText);
                 if (positiveButtonClickListener != null) {
-                    layout.findViewById(R.id.tv_ok).setOnClickListener(new View.OnClickListener() {
+                    tv_ok.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             positiveButtonClickListener.onClick(dialog, DialogInterface.BUTTON_POSITIVE);
                         }
@@ -206,14 +223,15 @@ public class CustomDialog  extends Dialog {
                 }
             } else {
                 // if no confirm button just set the visibility to GONE
-                layout.findViewById(R.id.tv_ok).setVisibility(View.GONE);
+                tv_ok.setVisibility(View.GONE);
             }
 
             // set the cancel button
+            tv_cancle=((TextView) layout.findViewById(R.id.tv_cancel));
             if (negativeButtonText != null) {
-                ((TextView) layout.findViewById(R.id.tv_cancel)).setText(negativeButtonText);
+                tv_cancle.setText(negativeButtonText);
                 if (negativeButtonClickListener != null) {
-                    layout.findViewById(R.id.tv_cancel).setOnClickListener(new View.OnClickListener() {
+                    tv_cancle.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             negativeButtonClickListener.onClick(dialog, DialogInterface.BUTTON_NEGATIVE);
                         }
@@ -221,7 +239,7 @@ public class CustomDialog  extends Dialog {
                 }
             } else {
                 // if no confirm button just set the visibility to GONE
-                layout.findViewById(R.id.tv_cancel).setVisibility(View.GONE);
+                tv_cancle.setVisibility(View.GONE);
             }
 
             if (positiveButtonText == null || negativeButtonText == null)
