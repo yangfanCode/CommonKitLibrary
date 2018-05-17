@@ -75,7 +75,7 @@ public class CustomBannerView extends RelativeLayout {
 
     private int placeholder;//
     private int errorHolder;
-    private ImageView.ScaleType scaleType = ImageView.ScaleType.CENTER_CROP;
+    private ImageView.ScaleType scaleType;
 
     private boolean isLoop = true;
 
@@ -91,7 +91,16 @@ public class CustomBannerView extends RelativeLayout {
         rightTop,
         leftTop
     }
-
+   private static final ImageView.ScaleType[] sScaleTypeArray = {
+        ImageView.ScaleType.MATRIX,
+        ImageView.ScaleType.FIT_XY,
+        ImageView.ScaleType.FIT_START,
+        ImageView.ScaleType.FIT_CENTER,
+        ImageView.ScaleType.FIT_END,
+        ImageView.ScaleType.CENTER,
+        ImageView.ScaleType.CENTER_CROP,
+        ImageView.ScaleType.CENTER_INSIDE
+    };
     private OnBannerItemClickListener onBannerItemClickListener;
     private BannerOnPageChangeListener bannerOnPageChangeListener;
 
@@ -164,6 +173,9 @@ public class CustomBannerView extends RelativeLayout {
         errorHolder = array.getResourceId(R.styleable.BannerLayoutStyle_errorHolder, errorHolder);
         isIndicatorVisible = array.getBoolean(R.styleable.BannerLayoutStyle_isIndicatorVisible, isIndicatorVisible);
         cornerRadii = (int) array.getDimension(R.styleable.BannerLayoutStyle_cornerRadii, 0);
+
+        int scaleIndex = array.getInt(R.styleable.BannerLayoutStyle_scaleType, ImageView.ScaleType.CENTER_CROP.ordinal());
+        scaleType=sScaleTypeArray[scaleIndex];
         array.recycle();
 
         //绘制未选中状态图形

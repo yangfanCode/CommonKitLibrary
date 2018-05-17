@@ -4,6 +4,7 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion 25
     defaultConfig {
+        //作为library引用要注掉
         //applicationId "com.yangfan.commonkitlibrary"
         minSdkVersion 15
         targetSdkVersion 25
