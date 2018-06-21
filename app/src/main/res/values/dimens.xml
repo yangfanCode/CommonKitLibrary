@@ -68,7 +68,7 @@
 
     <!--  form  的一些定义 -->
     <dimen name="form_row_height">59dp</dimen>
-    <dimen name="form_row_title_width_min">92dp</dimen>
+    <dimen name="form_row_title_width_min">62dp</dimen>
     <dimen name="row_inner_vertical_padding">13dp</dimen>
     <dimen name="row_inner_left_padding">15dp</dimen>
     <dimen name="row_inner_right_padding">15dp</dimen>
