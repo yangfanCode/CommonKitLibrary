@@ -103,5 +103,9 @@
         </attr>
     </declare-styleable>
 
-
+    <!--限制小数位数的editText-->
+    <declare-styleable name="DecimalDigitsEditText">
+        <attr name="beforeDot" format="integer"></attr>
+        <attr name="afterDot" format="integer"></attr>
+    </declare-styleable>
 </resources>
