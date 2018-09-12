@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.view.ViewGroup.LayoutParams;
+
 import com.yangfan.commonkitlibrary.R;
 import com.yangfan.utils.CommonUtils;
 
@@ -17,7 +18,7 @@ import com.yangfan.utils.CommonUtils;
  * nrainyseason@163.com
  */
 
-public class CustomDialog  extends Dialog {
+public class CustomDialog extends Dialog {
 
     public CustomDialog(Context context, int theme) {
         super(context, theme);
@@ -31,8 +32,8 @@ public class CustomDialog  extends Dialog {
      * Helper class for creating a custom dialog
      */
     public static class Builder {
-
-        private TextView tv_ok,tv_cancle;
+        LinearLayout bgLayout;
+        private TextView tv_ok, tv_cancle;
         private Context context;
         private String title;
         private String message;
@@ -163,18 +164,49 @@ public class CustomDialog  extends Dialog {
 
         /**
          * get the negative button
+         *
          * @return
          */
-        public TextView getNegativeButton(){
-            return tv_cancle;
+        public TextView getNegativeButton() {
+            if (tv_ok != null) {
+                return tv_cancle;
+            } else {
+                throw new RuntimeException("getNegativeButton must be after create method");
+            }
         }
 
         /**
          * get the positive button
+         *
          * @return
          */
-        public TextView getPositiveButton(){
-            return tv_ok;
+        public TextView getPositiveButton() {
+            if (tv_ok != null) {
+                return tv_ok;
+            } else {
+                throw new RuntimeException("getPositiveButton must be after create method");
+            }
+        }
+
+        /**
+         * set dialog background
+         *
+         * @param res
+         */
+        public void setDialogBackGround(int res) {
+            if (bgLayout != null) {
+                bgLayout.setBackgroundResource(res);
+            } else {
+                throw new RuntimeException("setDialogBackGround must be after create method");
+            }
+        }
+
+        public LinearLayout getDialogBackLayout() {
+            if (bgLayout != null) {
+                return bgLayout;
+            } else {
+                throw new RuntimeException("getDialogBackLayout must be after create method");
+            }
         }
 
         /**
@@ -187,6 +219,7 @@ public class CustomDialog  extends Dialog {
 
             View layout = inflater.inflate(R.layout.pop_normal, null);
             dialog.addContentView(layout, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+            bgLayout = (LinearLayout) layout.findViewById(R.id.dialog_bg_layout);
             // set the dialog title
             if (title != null) {
                 ((TextView) layout.findViewById(R.id.tv_title)).setText(title);
@@ -211,7 +244,7 @@ public class CustomDialog  extends Dialog {
             }
 
             // set the confirm button
-            tv_ok=((TextView) layout.findViewById(R.id.tv_ok));
+            tv_ok = ((TextView) layout.findViewById(R.id.tv_ok));
             if (positiveButtonText != null) {
                 tv_ok.setText(positiveButtonText);
                 if (positiveButtonClickListener != null) {
@@ -227,7 +260,7 @@ public class CustomDialog  extends Dialog {
             }
 
             // set the cancel button
-            tv_cancle=((TextView) layout.findViewById(R.id.tv_cancel));
+            tv_cancle = ((TextView) layout.findViewById(R.id.tv_cancel));
             if (negativeButtonText != null) {
                 tv_cancle.setText(negativeButtonText);
                 if (negativeButtonClickListener != null) {
