@@ -46,4 +46,8 @@ public class CustomFragmentPagerAdapter extends FragmentPagerAdapter {
         return mFragmentTitleList.get(position);
     }
 
+    public List<CharSequence> getTitles(){
+        return mFragmentTitleList;
+    }
+
 }
