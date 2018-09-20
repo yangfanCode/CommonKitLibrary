@@ -30,10 +30,12 @@ public class DecimalDigitsEditText extends AppCompatEditText {
 
     public void setBeforeDot(int beforeDot){
         this.beforeDot=beforeDot;
+        addTextChangedListener(new DecimalDigitsWatcher(beforeDot,afterDot));
     }
 
     public void setAfterDot(int afterDot){
         this.afterDot=afterDot;
+        addTextChangedListener(new DecimalDigitsWatcher(beforeDot,afterDot));
     }
 
 }
