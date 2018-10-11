@@ -204,7 +204,7 @@ public abstract class CountDownTimer {
     };
 
     /**
-     * 获得准确秒数
+     * 获得准确秒数 不显示0 显示0直接/1000
      * @param millisUntilFinished
      * @return
      */
