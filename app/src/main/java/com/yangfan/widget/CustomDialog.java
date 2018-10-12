@@ -3,6 +3,7 @@ package com.yangfan.widget;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -33,7 +34,7 @@ public class CustomDialog extends Dialog {
      */
     public static class Builder {
         LinearLayout bgLayout;
-        private TextView tv_ok, tv_cancle;
+        private TextView tv_ok, tv_cancle, tv_content;
         private Context context;
         private String title;
         private String message;
@@ -189,6 +190,19 @@ public class CustomDialog extends Dialog {
         }
 
         /**
+         * get the content message
+         *
+         * @return
+         */
+        public TextView getContentMessage() {
+            if (tv_content != null && !TextUtils.isEmpty(message)) {
+                return tv_content;
+            } else {
+                throw new RuntimeException("getContentMessage must be after create method and setMessage method only");
+            }
+        }
+
+        /**
          * set dialog background
          *
          * @param res
@@ -229,10 +243,11 @@ public class CustomDialog extends Dialog {
             }
 
             // set the content message
+            tv_content = (TextView) layout.findViewById(R.id.tv_content);
             if (message != null) {
-                ((TextView) layout.findViewById(R.id.tv_content)).setText(message);
+                tv_content.setText(message);
             } else {
-                layout.findViewById(R.id.tv_content).setVisibility(View.GONE);
+                tv_content.setVisibility(View.GONE);
             }
             if (contentView != null) {
                 // if no message set
