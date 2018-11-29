@@ -5,7 +5,7 @@ android {
     compileSdkVersion 25
     defaultConfig {
         //作为library引用要注掉
-        //applicationId "com.yangfan.commonkitlibrary"
+//        applicationId "com.yangfan.commonkitlibrary"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 9
@@ -26,6 +26,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
     testCompile  'junit:junit:4.12'
     androidTestCompile('com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -36,5 +37,4 @@ dependencies {
     /** 下拉刷新 **/
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
     compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-14'
-    compile 'com.github.captain-miao:uniqueadapter:1.1.0'
 }

@@ -4,8 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ViewGroup;
 
-import com.github.captain_miao.uniqueadapter.library.BaseUniqueAdapter;
-import com.github.captain_miao.uniqueadapter.library.ItemModel;
 
 import java.util.ArrayList;
 import java.util.List;

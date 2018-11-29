@@ -7,11 +7,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.github.captain_miao.uniqueadapter.library.OnClickPresenter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.yangfan.adapter.BaseRecyclerAdapter;
+import com.yangfan.adapter.OnClickPresenter;
+import com.yangfan.adapter.OnLongClickPresenter;
 import com.yangfan.model.TestModel;
 import com.yangfan.utils.ToastTools;
 import com.yangfan.widget.RecycleViewDivider;
@@ -20,7 +21,7 @@ import com.yangfan.widget.RecyclerEmptyView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements OnClickPresenter<TestModel>{
+public class MainActivity extends AppCompatActivity implements OnClickPresenter<TestModel>,OnLongClickPresenter<TestModel> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements OnClickPresenter<
         SmartRefreshLayout refreshLayout= (SmartRefreshLayout) findViewById(R.id.refrensh);
         final BaseRecyclerAdapter<TestModel> adapter=new BaseRecyclerAdapter<TestModel>(){};
         adapter.setOnClickPresenter(this);
+        adapter.setOnLongClickPresenter(this);
         List<TestModel>list=new ArrayList<>();
         for(int i=0;i<20;i++){
             TestModel testModel=new TestModel();
@@ -67,16 +69,29 @@ public class MainActivity extends AppCompatActivity implements OnClickPresenter<
 
     @Override
     public void onClick(View view, TestModel testModel) {
-//        switch (view.getId()){
-//            case R.id.tv_name:
-//                ToastTools.showToast(MainActivity.this,"tv:"+testModel.name);
-//                break;
-//            case R.id.layout_test:
-//                ToastTools.showToast(MainActivity.this,"layout:"+testModel.name);
-//                break;
-//            case R.id.iv_icon:
-//                ToastTools.showToast(MainActivity.this,"iv:"+testModel.name);
-//                break;
-//        }
+        switch (view.getId()){
+            case R.id.tv_name:
+                ToastTools.showToast(MainActivity.this,"tv:"+testModel.name);
+                break;
+            case R.id.layout_test:
+                ToastTools.showToast(MainActivity.this,"layout:"+testModel.name);
+                break;
+            case R.id.iv_icon:
+                ToastTools.showToast(MainActivity.this,"iv:"+testModel.name);
+                break;
+        }
+    }
+
+    @Override
+    public boolean onLongClick(View view, TestModel testModel) {
+        switch (view.getId()){
+            case R.id.tv_name:
+                ToastTools.showToast(MainActivity.this,"tv:"+testModel.name);
+                break;
+            case R.id.iv_icon:
+                ToastTools.showToast(MainActivity.this,"iv:"+testModel.name);
+                break;
+        }
+        return true;
     }
 }

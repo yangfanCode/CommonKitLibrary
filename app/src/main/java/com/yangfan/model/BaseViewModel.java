@@ -1,6 +1,6 @@
 package com.yangfan.model;
 
-import com.github.captain_miao.uniqueadapter.library.ItemModel;
+import com.yangfan.adapter.ItemModel;
 
 import java.io.Serializable;
 
