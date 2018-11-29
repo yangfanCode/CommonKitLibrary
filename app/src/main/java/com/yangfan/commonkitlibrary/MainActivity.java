@@ -67,16 +67,16 @@ public class MainActivity extends AppCompatActivity implements OnClickPresenter<
 
     @Override
     public void onClick(View view, TestModel testModel) {
-        switch (view.getId()){
-            case R.id.tv_name:
-                ToastTools.showToast(MainActivity.this,"tv:"+testModel.name);
-                break;
-            case R.id.layout_test:
-                ToastTools.showToast(MainActivity.this,"layout:"+testModel.name);
-                break;
-            case R.id.iv_icon:
-                ToastTools.showToast(MainActivity.this,"iv:"+testModel.name);
-                break;
-        }
+//        switch (view.getId()){
+//            case R.id.tv_name:
+//                ToastTools.showToast(MainActivity.this,"tv:"+testModel.name);
+//                break;
+//            case R.id.layout_test:
+//                ToastTools.showToast(MainActivity.this,"layout:"+testModel.name);
+//                break;
+//            case R.id.iv_icon:
+//                ToastTools.showToast(MainActivity.this,"iv:"+testModel.name);
+//                break;
+//        }
     }
 }
