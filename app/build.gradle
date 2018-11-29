@@ -8,8 +8,8 @@ android {
         //applicationId "com.yangfan.commonkitlibrary"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 8
-        versionName "1.2.1"
+        versionCode 9
+        versionName "1.4.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -17,6 +17,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    dataBinding {
+        enabled true
     }
 }
 
@@ -33,4 +36,5 @@ dependencies {
     /** 下拉刷新 **/
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
     compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-14'
+    compile 'com.github.captain-miao:uniqueadapter:1.1.0'
 }
