@@ -22,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.Scroller;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.yangfan.commonkitlibrary.R;
 
 import java.lang.reflect.Field;
@@ -267,13 +268,13 @@ public class CustomBannerView extends RelativeLayout {
         });
         imageView.setScaleType(scaleType);
         if (placeholder != 0 && errorHolder == 0) {
-            Glide.with(getContext()).load(res).placeholder(placeholder).crossFade().into(imageView);
+            Glide.with(getContext()).setDefaultRequestOptions(new RequestOptions().placeholder(placeholder)).load(res).into(imageView);
         } else if (placeholder == 0 && errorHolder != 0) {
-            Glide.with(getContext()).load(res).error(errorHolder).crossFade().into(imageView);
+            Glide.with(getContext()).setDefaultRequestOptions(new RequestOptions().error(errorHolder)).load(res).into(imageView);
         } else if (placeholder != 0 && errorHolder != 0) {
-            Glide.with(getContext()).load(res).placeholder(placeholder).error(errorHolder).crossFade().into(imageView);
+            Glide.with(getContext()).setDefaultRequestOptions(new RequestOptions().placeholder(placeholder).error(errorHolder)).load(res).into(imageView);
         } else {
-            Glide.with(getContext()).load(res).crossFade().into(imageView);
+            Glide.with(getContext()).load(res).into(imageView);
         }
         return imageView;
     }
@@ -317,13 +318,13 @@ public class CustomBannerView extends RelativeLayout {
         });
         imageView.setScaleType(scaleType);
         if (placeholder != 0 && errorHolder == 0) {
-            Glide.with(getContext()).load(url).placeholder(placeholder).crossFade().into(imageView);
+            Glide.with(getContext()).setDefaultRequestOptions(new RequestOptions().placeholder(placeholder)).load(url).into(imageView);
         } else if (placeholder == 0 && errorHolder != 0) {
-            Glide.with(getContext()).load(url).error(errorHolder).crossFade().into(imageView);
+            Glide.with(getContext()).setDefaultRequestOptions(new RequestOptions().error(errorHolder)).load(url).into(imageView);
         } else if (placeholder != 0 && errorHolder != 0) {
-            Glide.with(getContext()).load(url).placeholder(placeholder).error(errorHolder).crossFade().into(imageView);
+            Glide.with(getContext()).setDefaultRequestOptions(new RequestOptions().placeholder(placeholder).error(errorHolder)).load(url).into(imageView);
         } else {
-            Glide.with(getContext()).load(url).crossFade().into(imageView);
+            Glide.with(getContext()).load(url).into(imageView);
         }
         return imageView;
     }
