@@ -28,7 +28,6 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.github.bumptech.glide:glide:4.1.0'
     compile 'com.youth.banner:banner:1.4.10'  //最新版本
     compile 'com.github.hackware1993:MagicIndicator:1.5.0'//tablayout
     /** 下拉刷新 **/
